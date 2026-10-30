@@ -1,0 +1,52 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<link rel="stylesheet" href="node_modules/@xterm/xterm/css/xterm.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#14151a;color:#d7d9e0;font:13px 'Segoe UI',system-ui,sans-serif;overflow:hidden}
+#app{display:grid;grid-template-columns:340px 1fr;height:100%}
+#side{display:flex;flex-direction:column;border-right:1px solid #24262e;min-height:0}
+#head{padding:12px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #24262e}
+#brand{font-weight:600;font-size:15px;letter-spacing:.3px}
+#brand b{color:#d97757}
+.row{display:flex;gap:6px}
+input{flex:1;background:#1c1e25;border:1px solid #2b2e38;color:inherit;border-radius:6px;padding:7px 9px;outline:none;min-width:0}
+input:focus{border-color:#d97757}
+button{background:#1c1e25;border:1px solid #2b2e38;color:inherit;border-radius:6px;padding:7px 10px;cursor:pointer}
+button:hover{background:#252832}
+button.primary{background:#d97757;border-color:#d97757;color:#14151a;font-weight:600}
+button.primary:hover{background:#e58a6b}
+#list{flex:1;overflow-y:auto}
+.item{padding:9px 12px;border-bottom:1px solid #1c1e25;cursor:pointer;content-visibility:auto;contain-intrinsic-size:auto 52px}
+.item:hover{background:#1a1c23}
+.item.open{border-left:3px solid #d97757;padding-left:9px}
+.item.active{background:#22242d}
+.t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m{color:#7d8190;font-size:11.5px;margin-top:3px;display:flex;justify-content:space-between;gap:8px}
+.m span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m span:last-child{white-space:nowrap}
+#main{display:flex;flex-direction:column;min-width:0;min-height:0}
+#tabs{display:flex;background:#101116;border-bottom:1px solid #24262e;overflow-x:auto;min-height:36px}
+.tab{display:flex;align-items:center;gap:8px;padding:0 12px;max-width:220px;cursor:pointer;border-right:1px solid #1c1e25;color:#7d8190}
+.tab.active{background:#14151a;color:#d7d9e0;box-shadow:inset 0 -2px #d97757}
+.tab span.n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tab .x{opacity:.5;padding:0 3px;border-radius:3px}.tab .x:hover{opacity:1;background:#2b2e38}
+#terms{flex:1;position:relative;min-height:0}
+.term{position:absolute;inset:8px 0 0 10px;display:none}
+.term.active{display:block}
+#empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#4b4e5a}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-thumb{background:#2b2e38;border-radius:5px}
+</style></head>
+<body><div id="app">
+ <div id="side">
+  <div id="head">
+   <div id="brand">claud<b>story</b></div>
+   <div class="row"><input id="q" placeholder="Search prompt or folder…"><button id="sort" title="Toggle sort order">Newest ↓</button></div>
+   <button class="primary" id="new">+ New session…</button>
+  </div>
+  <div id="list"></div>
+ </div>
+ <div id="main"><div id="tabs"></div><div id="terms"><div id="empty">Pick a session or start a new one</div></div></div>
+</div>
+<script src="renderer.js"></script></body></html>

@@ -1,0 +1,16 @@
+{
+  "name": "claudstory",
+  "version": "0.1.0",
+  "description": "Browse every Claude Code session across all project folders, resume or start one in a built-in terminal.",
+  "main": "main.js",
+  "scripts": { "start": "electron ." },
+  "author": "Akicou",
+  "license": "MIT",
+  "repository": { "type": "git", "url": "git+https://github.com/Akicou/claudstory.git" },
+  "dependencies": {
+    "@lydell/node-pty": "^1.1.0",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/xterm": "^5.5.0",
+    "electron": "^33.0.0"
+  }
+}
