@@ -43,6 +43,10 @@
       "target": "AppImage",
       "category": "Development",
       "icon": "build/icon.png"
+    },
+    "publish": {
+      "provider": "github",
+      "releaseType": "release"
     }
   }
 }
