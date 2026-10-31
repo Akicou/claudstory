@@ -74,7 +74,7 @@ ipcMain.on('pty-close', (_e, key) => { ptys.get(key)?.kill(); ptys.delete(key) }
 
 app.whenReady().then(() => {
   win = new BrowserWindow({
-    width: 1400, height: 880, backgroundColor: '#14151a', title: 'claudstory', autoHideMenuBar: true,
+    width: 1400, height: 880, backgroundColor: '#14151a', title: 'claudstory', icon: require('path').join(__dirname, 'build', 'icon.png'), autoHideMenuBar: true,
     webPreferences: { nodeIntegration: true, contextIsolation: false }, // local-only UI, loads no remote content
   })
   win.removeMenu()

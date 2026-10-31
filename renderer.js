@@ -1,4 +1,5 @@
-const { ipcRenderer: ipc } = require('electron')
+const { ipcRenderer: ipc, webUtils } = require('electron')
+const fs = require('fs'), os = require('os'), path = require('path')
 const { Terminal } = require('@xterm/xterm')
 const { FitAddon } = require('@xterm/addon-fit')
 const $ = id => document.getElementById(id)
@@ -48,6 +49,24 @@ function openTerm(key, label, cwd, resume) {
   show(key)
   ipc.send('pty-open', { key, cwd, resume, cols: term.cols, rows: term.rows })
   term.onData(d => ipc.send('pty-write', key, d))
+  const send = s => { ipc.send('pty-write', key, s); term.focus() }
+  const q = p => /\s/.test(p) ? `"${p}"` : p
+  // dropped files -> quoted paths, like a real terminal; Claude CLI reads image paths
+  el.addEventListener('dragover', e => e.preventDefault())
+  el.addEventListener('drop', e => {
+    e.preventDefault()
+    send([...e.dataTransfer.files].map(f => q(webUtils.getPathForFile(f))).join(' ') + ' ')
+  })
+  // pasted clipboard image -> temp png -> path (capture phase beats xterm's own paste)
+  el.addEventListener('paste', e => {
+    const f = [...e.clipboardData.files].find(f => f.type.startsWith('image/'))
+    if (!f) return
+    e.preventDefault(); e.stopPropagation()
+    f.arrayBuffer().then(b => {
+      const p = path.join(os.tmpdir(), `claudstory-${Date.now()}.${f.type.split('/')[1] || 'png'}`)
+      fs.writeFileSync(p, Buffer.from(b)); send(q(p) + ' ')
+    })
+  }, true)
   term.onResize(({ cols, rows }) => ipc.send('pty-resize', key, cols, rows))
 }
 
