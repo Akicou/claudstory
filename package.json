@@ -16,11 +16,11 @@
   "dependencies": {
     "@lydell/node-pty": "^1.1.0",
     "@xterm/addon-fit": "^0.10.0",
-    "@xterm/xterm": "^5.5.0",
-    "electron": "^33.0.0"
+    "@xterm/xterm": "^5.5.0"
   },
   "devDependencies": {
-    "electron-builder": "^26.18.0"
+    "electron-builder": "^26.18.0",
+    "electron": "^33.0.0"
   },
   "build": {
     "appId": "com.akicou.claudstory",
